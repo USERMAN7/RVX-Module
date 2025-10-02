@@ -7,26 +7,27 @@ ask() {
 	local y
 	for ((n = 0; n < 3; n++)); do
 		pr "$1 [y/n]"
-		if read -r y; then
-			if [ "$y" = y ]; then
-				return 0
-			elif [ "$y" = n ]; then
-				return 1
-			fi
-		fi
-		pr "Asking again..."
+		read -r y; case $y in 
+		Y|y)
+			return 0;;
+		N|n)
+			return 1;;
+		*)
+		pr "Asking again...";;
+	esac
 	done
 	return 1
 }
 
 pr "Ask for storage permission"
+echo $?
 until
 	yes | termux-setup-storage >/dev/null 2>&1
 	ls /sdcard >/dev/null 2>&1
 do sleep 1; done
 if [ ! -f ~/.rvmm_"$(date '+%Y%m')" ]; then
 	pr "Setting up environment..."
-	yes "" | pkg update -y && pkg upgrade -y && pkg install -y git curl jq openjdk-17 zip
+	yes "" | pkg update -y && pkg upgrade -y && pkg install -y jq openjdk-17 zip
 	: >~/.rvmm_"$(date '+%Y%m')"
 fi
 mkdir -p /sdcard/Download/revanced-magisk-module/
