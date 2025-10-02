@@ -64,18 +64,11 @@ until
 	if ask "Open 'config.toml' to configure builds?\nAll are disabled by default, you will need to enable at first time building"; then
 		am start -a android.intent.action.VIEW -d file:///sdcard/Download/revanced-magisk-module/config.toml -t text/plain
 	fi
-	ask "Setup is done. Do you want to start building?"
-	status=$?
-	echo $status
-	if [[ $status != 0 ]]; then
-		pr "Exiting"; exit 0
-	fi
+	if ask "Setup is done. Do you want to start building?"; then
 
 do :; done
 cp -f ~/storage/downloads/revanced-magisk-module/config.toml config.toml
-
 ./build.sh
-
 cd build
 PWD=$(pwd)
 for op in *; do
@@ -85,8 +78,10 @@ for op in *; do
 	}
 	mv -f "${PWD}/${op}" ~/storage/downloads/revanced-magisk-module/"${op}"
 done
-
 pr "Outputs are available in /sdcard/Download/revanced-magisk-module folder"
 am start -a android.intent.action.VIEW -d file:///sdcard/Download/revanced-magisk-module -t resource/folder
 sleep 2
 am start -a android.intent.action.VIEW -d file:///sdcard/Download/revanced-magisk-module -t resource/folder
+else
+pr "Exiting"
+fi
