@@ -8,9 +8,9 @@ ask() {
 	for ((n = 0; n < 3; n++)); do
 		pr "$1 [y/n]"
 		read -r y; case $y in 
-		Y|y)
+		Y|y|Y*|y*)
 			return 0;;
-		N|n)
+		N|n|N*|n*)
 			return 1;;
 		*)
 		pr "Asking again...";;
@@ -65,8 +65,6 @@ until
 		am start -a android.intent.action.VIEW -d file:///sdcard/Download/revanced-magisk-module/config.toml -t text/plain
 	fi
 	if ask "Setup is done. Do you want to start building?"; then
-
-do :; done
 cp -f ~/storage/downloads/revanced-magisk-module/config.toml config.toml
 ./build.sh
 cd build
