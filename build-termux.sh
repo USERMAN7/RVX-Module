@@ -20,7 +20,6 @@ ask() {
 }
 
 pr "Ask for storage permission"
-echo $?
 until
 	yes | termux-setup-storage >/dev/null 2>&1
 	ls /sdcard >/dev/null 2>&1
@@ -31,7 +30,6 @@ if [ ! -f ~/.rvmm_"$(date '+%Y%m')" ]; then
 	: >~/.rvmm_"$(date '+%Y%m')"
 fi
 mkdir -p /sdcard/Download/revanced-magisk-module/
-
 if [ -d revanced-magisk-module ] || [ -f config.toml ]; then
 	if [ -d revanced-magisk-module ]; then cd revanced-magisk-module; fi
 	pr "Checking for revanced-magisk-module updates"
