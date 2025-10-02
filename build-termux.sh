@@ -68,8 +68,7 @@ until
 	status=$?
 	echo $status
 	if [[ $status != 0 ]]; then
-		echo -e "Exiting."
-		exit 0
+		pr "Exiting"; exit 0
 	fi
 
 do :; done
