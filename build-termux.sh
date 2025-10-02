@@ -67,6 +67,10 @@ until
 	ask "Setup is done. Do you want to start building?"
 	status=$?
 	echo $status
+	if [[ $status != 0 ]]; then
+		echo -e "Exiting."
+		exit 0
+	fi
 
 do :; done
 cp -f ~/storage/downloads/revanced-magisk-module/config.toml config.toml
