@@ -65,6 +65,9 @@ until
 		am start -a android.intent.action.VIEW -d file:///sdcard/Download/revanced-magisk-module/config.toml -t text/plain
 	fi
 	ask "Setup is done. Do you want to start building?"
+	status=$?
+	echo $status
+
 do :; done
 cp -f ~/storage/downloads/revanced-magisk-module/config.toml config.toml
 
